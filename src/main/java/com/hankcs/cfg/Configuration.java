@@ -1,7 +1,6 @@
 package com.hankcs.cfg;
 
 import com.hankcs.dic.Dictionary;
-import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 
@@ -10,68 +9,62 @@ import org.elasticsearch.env.Environment;
  * Description: 配置信息
  * Author: Kenn
  * Create: 2018-12-14 15:10
+ * Adapt for Elasticsearch 8.19: 移除 Guice @Inject 注解，优化配置读取逻辑
  */
 public class Configuration {
 
     private final Environment environment;
-
     private final Settings settings;
 
+    // 配置项（保持原有语义）
     private boolean enablePorterStemming;
-
     private boolean enableIndexMode;
-
     private boolean enableNumberQuantifierRecognize;
-
     private boolean enableCustomDictionary;
-
     private boolean enableTranslatedNameRecognize;
-
     private boolean enableJapaneseNameRecognize;
-
     private boolean enableOrganizationRecognize;
-
     private boolean enablePlaceRecognize;
-
     private boolean enableNameRecognize;
-
     private boolean enableTraditionalChineseMode;
-
     private boolean enableStopDictionary;
-
     private boolean enablePartOfSpeechTagging;
-
     private boolean enableRemoteDict;
-
     private boolean enableNormalization;
-
     private boolean enableOffset;
-
     private boolean enableCustomConfig;
 
-    @Inject
-    public Configuration(Environment env, Settings settings) {
-        this.environment = env;
+    /**
+     * 移除 @Inject 注解，改为显式构造器（由 Plugin 手动传入依赖）
+     * @param environment Elasticsearch 环境上下文（8.x 由 Plugin.createComponents 提供）
+     * @param settings 配置项（8.x 支持更安全的 getAsBoolean 方法）
+     */
+    public Configuration(Environment environment, Settings settings) {
+        this.environment = environment;
         this.settings = settings;
-        this.enablePorterStemming = settings.get("enable_porter_stemming", "false").equals("true");
-        this.enableIndexMode = settings.get("enable_index_mode", "false").equals("true");
-        this.enableNumberQuantifierRecognize = settings.get("enable_number_quantifier_recognize", "false").equals("true");
-        this.enableCustomDictionary = settings.get("enable_custom_dictionary", "true").equals("true");
-        this.enableTranslatedNameRecognize = settings.get("enable_translated_name_recognize", "true").equals("true");
-        this.enableJapaneseNameRecognize = settings.get("enable_japanese_name_recognize", "false").equals("true");
-        this.enableOrganizationRecognize = settings.get("enable_organization_recognize", "false").equals("true");
-        this.enablePlaceRecognize = settings.get("enable_place_recognize", "false").equals("true");
-        this.enableNameRecognize = settings.get("enable_name_recognize", "true").equals("true");
-        this.enableTraditionalChineseMode = settings.get("enable_traditional_chinese_mode", "false").equals("true");
-        this.enableStopDictionary = settings.get("enable_stop_dictionary", "false").equals("true");
-        this.enablePartOfSpeechTagging = settings.get("enable_part_of_speech_tagging", "false").equals("true");
-        this.enableRemoteDict = settings.get("enable_remote_dict", "true").equals("true");
-        this.enableNormalization = settings.get("enable_normalization", "false").equals("true");
-        this.enableOffset = settings.get("enable_offset", "true").equals("true");
-        this.enableCustomConfig = settings.get("enable_custom_config", "false").equals("true");
+
+        // 优化：使用 8.x 推荐的 getAsBoolean 方法（避免字符串比较，更安全）
+        this.enablePorterStemming = settings.getAsBoolean("enable_porter_stemming", false);
+        this.enableIndexMode = settings.getAsBoolean("enable_index_mode", false);
+        this.enableNumberQuantifierRecognize = settings.getAsBoolean("enable_number_quantifier_recognize", false);
+        this.enableCustomDictionary = settings.getAsBoolean("enable_custom_dictionary", true);
+        this.enableTranslatedNameRecognize = settings.getAsBoolean("enable_translated_name_recognize", true);
+        this.enableJapaneseNameRecognize = settings.getAsBoolean("enable_japanese_name_recognize", false);
+        this.enableOrganizationRecognize = settings.getAsBoolean("enable_organization_recognize", false);
+        this.enablePlaceRecognize = settings.getAsBoolean("enable_place_recognize", false);
+        this.enableNameRecognize = settings.getAsBoolean("enable_name_recognize", true);
+        this.enableTraditionalChineseMode = settings.getAsBoolean("enable_traditional_chinese_mode", false);
+        this.enableStopDictionary = settings.getAsBoolean("enable_stop_dictionary", false);
+        this.enablePartOfSpeechTagging = settings.getAsBoolean("enable_part_of_speech_tagging", false);
+        this.enableRemoteDict = settings.getAsBoolean("enable_remote_dict", true);
+        this.enableNormalization = settings.getAsBoolean("enable_normalization", false);
+        this.enableOffset = settings.getAsBoolean("enable_offset", true);
+        this.enableCustomConfig = settings.getAsBoolean("enable_custom_config", false);
+
         Dictionary.initial(this);
     }
 
+    // 以下 getter/setter 方法保持不变（保证原有业务逻辑兼容性）
     public Environment getEnvironment() {
         return this.environment;
     }

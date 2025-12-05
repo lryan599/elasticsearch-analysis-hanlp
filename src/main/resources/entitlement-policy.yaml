@@ -1,0 +1,4 @@
+# 权限配置文件
+ALL-UNNAMED:
+  - manage_threads
+  - outbound_network
