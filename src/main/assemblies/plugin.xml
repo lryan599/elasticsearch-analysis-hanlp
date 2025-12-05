@@ -7,11 +7,11 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/src/main/plugin-metadata/config</directory>
+            <directory>${project.basedir}/config</directory>
             <outputDirectory>config</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/main/plugin-metadata/data</directory>
+            <directory>${project.basedir}/data</directory>
             <outputDirectory>data</outputDirectory>
         </fileSet>
     </fileSets>

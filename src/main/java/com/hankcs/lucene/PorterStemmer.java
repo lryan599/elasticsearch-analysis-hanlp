@@ -607,7 +607,7 @@ public class PorterStemmer {
                         s.add(Character.toLowerCase((char) ch));
                     } else {
                         s.stem();
-                        System.out.print(s.toString());
+                        System.out.print(s);
                         s.reset();
                         if (ch < 0)
                             break;

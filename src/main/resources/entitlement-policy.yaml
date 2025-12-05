@@ -2,3 +2,6 @@
 ALL-UNNAMED:
   - manage_threads
   - outbound_network
+  - files:
+    - path: "/usr/share/elasticsearch/plugins/analysis-hanlp/data"
+      mode: read_write
