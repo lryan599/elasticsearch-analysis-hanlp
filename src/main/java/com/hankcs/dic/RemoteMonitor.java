@@ -176,7 +176,7 @@ public class RemoteMonitor implements Runnable {
                     String word = param[0];
 
                     // 排除空行
-                    if (word.length() == 0) {
+                    if (word.isEmpty()) {
                         continue;
                     }
 

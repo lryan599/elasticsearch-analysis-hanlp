@@ -35,14 +35,14 @@ public class DictionaryFile {
     }
 
     public void write(DataOutputStream out) throws IOException {
-        if (path != null && path.length() != 0) {
+        if (path != null && !path.isEmpty()) {
             byte[] bytes = path.getBytes(StandardCharsets.UTF_8);
             out.writeInt(bytes.length);
             out.write(bytes);
         } else {
             out.writeInt(0);
         }
-        if (type != null && type.length() != 0) {
+        if (type != null && !type.isEmpty()) {
             byte[] bytes = type.getBytes(StandardCharsets.UTF_8);
             out.writeInt(bytes.length);
             out.write(bytes);

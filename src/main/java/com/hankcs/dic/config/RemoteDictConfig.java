@@ -81,7 +81,7 @@ public class RemoteDictConfig {
 
             String[] filePaths = remoteExtStopWordDictCfg.split(";");
             for (String filePath : filePaths) {
-                if (filePath != null && !"".equals(filePath.trim())) {
+                if (filePath != null && !filePath.trim().isEmpty()) {
                     remoteExtFiles.add(filePath);
 
                 }

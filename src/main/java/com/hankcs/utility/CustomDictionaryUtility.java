@@ -72,7 +72,7 @@ public class CustomDictionaryUtility {
                     logger.warn("hanlp reload error, custom dictionary: {}", path);
                 }
             }
-            if (map.size() == 0) {
+            if (map.isEmpty()) {
                 logger.warn("hanlp does not reload any words");
                 // 当作空白占位符
                 map.put(Predefine.TAG_OTHER, null);
@@ -136,7 +136,7 @@ public class CustomDictionaryUtility {
                 }
                 String[] param = line.split(splitter);
                 // 排除空行
-                if (param[0].length() == 0) {
+                if (param[0].isEmpty()) {
                     continue;
                 }
                 // 正规化

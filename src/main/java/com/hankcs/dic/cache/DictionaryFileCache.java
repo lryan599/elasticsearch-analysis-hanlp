@@ -10,9 +10,8 @@ import org.elasticsearch.plugin.analysis.hanlp.AnalysisHanLPPlugin;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -51,7 +50,7 @@ public class DictionaryFileCache {
             List<DictionaryFile> dictionaryFileList = new ArrayList<>();
             DataInputStream in = null;
             try {
-                in = new DataInputStream(new FileInputStream(file));
+                in = new DataInputStream(Files.newInputStream(file.toPath()));
                 int size = in.readInt();
                 for (int i = 0; i < size; i++) {
                     DictionaryFile dictionaryFile = new DictionaryFile();
@@ -74,7 +73,7 @@ public class DictionaryFileCache {
             try {
                 logger.info("begin write down HanLP custom dictionary file cache, file path: {}, custom dictionary file list: {}",
                         cachePath.toFile().getAbsolutePath(), Arrays.toString(customDictionaryFileList.toArray()));
-                out = new DataOutputStream(new FileOutputStream(cachePath.toFile()));
+                out = new DataOutputStream(Files.newOutputStream(cachePath.toFile().toPath()));
                 out.writeInt(customDictionaryFileList.size());
                 for (DictionaryFile dictionaryFile : customDictionaryFileList) {
                     dictionaryFile.write(out);

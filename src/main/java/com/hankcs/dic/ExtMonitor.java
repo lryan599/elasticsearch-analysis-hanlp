@@ -9,9 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.SpecialPermission;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
@@ -80,10 +81,10 @@ public class ExtMonitor implements Runnable {
             p.load(
                     new InputStreamReader(Predefine.HANLP_PROPERTIES_PATH == null
                             ? Objects.requireNonNull(loader.getResourceAsStream("hanlp.properties"))
-                            : new FileInputStream(Predefine.HANLP_PROPERTIES_PATH), StandardCharsets.UTF_8)
+                            : Files.newInputStream(Paths.get(Predefine.HANLP_PROPERTIES_PATH)), StandardCharsets.UTF_8)
             );
             String root = p.getProperty("root", "").replaceAll("\\\\", "/");
-            if (root.length() > 0 && !root.endsWith("/")) {
+            if (!root.isEmpty() && !root.endsWith("/")) {
                 root += "/";
             }
             String[] pathArray = p.getProperty("CustomDictionaryPath", "data/dictionary/custom/CustomDictionary.txt").split(";");
@@ -116,7 +117,7 @@ public class ExtMonitor implements Runnable {
             AccessController.doPrivileged((PrivilegedAction) () -> {
                 if (file.exists()) {
                     if (customDictionaryPathTuple.length > 1) {
-                        if (customDictionaryPathTuple[1] == null || customDictionaryPathTuple[1].length() == 0) {
+                        if (customDictionaryPathTuple[1] == null || customDictionaryPathTuple[1].isEmpty()) {
                             dictionaryFileList.add(new DictionaryFile(path, file.lastModified()));
                         } else {
                             dictionaryFileList.add(new DictionaryFile(path, customDictionaryPathTuple[1].trim(), file.lastModified()));
