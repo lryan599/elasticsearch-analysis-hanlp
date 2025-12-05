@@ -7,23 +7,23 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/config</directory>
-            <outputDirectory>elasticsearch/config</outputDirectory>
+            <directory>${project.basedir}/src/main/plugin-metadata/config</directory>
+            <outputDirectory>config</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/data</directory>
-            <outputDirectory>elasticsearch/data</outputDirectory>
+            <directory>${project.basedir}/src/main/plugin-metadata/data</directory>
+            <outputDirectory>data</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
         <file>
             <source>${project.basedir}/src/main/resources/plugin-descriptor.properties</source>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <filtered>true</filtered>
         </file>
         <file>
             <source>${project.basedir}/src/main/resources/plugin-security.policy</source>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <filtered>true</filtered>
         </file>
         <file>
@@ -33,30 +33,29 @@
         </file>
     </files>
     <dependencySets>
+        <!-- 仅保留一个依赖集处理项目自身 artifact -->
         <dependencySet>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <excludes>
                 <exclude>org.elasticsearch:elasticsearch</exclude>
             </excludes>
         </dependencySet>
+        <!-- 第三方依赖集：移除 useProjectArtifact，避免重复 -->
         <dependencySet>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <includes>
                 <include>com.hankcs:hanlp</include>
             </includes>
             <excludes>
-                <exclude>org.apache.lucene:lucene-core</exclude>
-                <exclude>org.apache.lucene:lucene-analyzers-common</exclude>
-                <exclude>org.apache.lucene:lucene-queryparser</exclude>
-                <exclude>org.apache.lucene:lucene-sandbox</exclude>
+                <exclude>org.apache.lucene:*</exclude> <!-- 简化通配符，避免无效匹配 -->
             </excludes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <includes>
@@ -68,7 +67,7 @@
             </excludes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>elasticsearch</outputDirectory>
+            <outputDirectory/>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <includes>
