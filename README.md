@@ -1,14 +1,7 @@
 # elasticsearch-analysis-hanlp
 HanLP Analyzer for ElasticSearch
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dbe4103dc2da4b6b89b5562aacaa3c3f)](https://app.codacy.com/app/kennfalcon/elasticsearch-analysis-hanlp?utm_source=github.com&utm_medium=referral&utm_content=KennFalcon/elasticsearch-analysis-hanlp&utm_campaign=Badge_Grade_Settings)
-[![Build Status](https://travis-ci.com/KennFalcon/elasticsearch-analysis-hanlp.svg?branch=master)](https://travis-ci.com/KennFalcon/elasticsearch-analysis-hanlp)
-[![GitHub release](https://img.shields.io/github/release/KennFalcon/elasticsearch-analysis-hanlp.svg)](https://github.com/KennFalcon/elasticsearch-analysis-hanlp/releases)
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-
-此分词器基于[HanLP](http://www.hankcs.com/nlp)，提供了HanLP中大部分的分词方式。
-
-今年一年都在忙其他事，所以插件更新基本一年没有更新，年底更新一波。今年学习了一下ES向量插件（亚马逊设计的那个方式还挺有意思的，重新设计向量索引文件，但文件管理依托于lucene），搞了搞知识图谱（JanusGraph），最近又在弄ES存储计算分离（基于共享存储）
+基于fork仓库，目标是适配ES 9.x。
 
 🚩 更新日志：
 1. 适配Elasticsearch 7.5.1~7.10.2版本，更新HanLP版本至1.7.8，更新日志这次就不在每个release上加了，直接看README（7.5.1重新打包订正）(陆续上传中)
